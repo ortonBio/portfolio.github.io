@@ -67,7 +67,7 @@ faq:
 # Final CTA
 cta:
   title: "Ready to Transform Your Mindset?"
-  button_text: "Enroll Now - $97"
+  button_text: "Enroll Now"
   link: "#"
 ---
 
