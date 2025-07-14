@@ -385,11 +385,11 @@
 
   .module-card {
     background: var(--bg-light);
-    padding: 25px;
+    padding: 15px;
     border-radius: 12px;
     display: flex;
     align-items: flex-start;
-    gap: 20px;
+    gap: 12px;
     transition: all 0.3s var(--ease);
     border: 1px solid transparent;
 
@@ -401,8 +401,8 @@
     }
 
     .module-number {
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       background: var(--gradient);
       border-radius: 50%;
       display: flex;
@@ -434,6 +434,13 @@
       font-size: 0.85rem;
       font-style: italic;
     }
+  }
+}
+
+@media (max-width: 360px) {
+  .module-curriculum {
+    padding-left: 10px;     /* give parent card a little breathing room */
+    padding-right: 10px;
   }
 }
 
