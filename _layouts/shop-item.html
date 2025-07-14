@@ -34,181 +34,111 @@ layout: default
 </button>
 
 <article class="product-article">
-  <!-- Hero Section -->
-  <div class="product-hero">
-    <div class="product-hero-image image-loading glass-card">
-      <img class="lazy-img" loading="lazy" src="{{ page.image }}" alt="{{ page.title }}" data-zoomable>
+  <!-- UNIVERSAL PRODUCT HERO -->
+  <div class="product-hero glass-card">
+    <div class="product-header">
+      <div class="bestseller-badge">{{ page.category | upcase }}</div>
+      <h1>{{ page.title }}</h1>
     </div>
     
-    <div class="product-header-content glass-card">
-      <div class="product-meta">
-        <span class="product-category">{{ page.category }}</span>
+    <div class="product-main">
+      <!-- ADAPTIVE IMAGE CONTAINER -->
+      <div class="product-image-container">
+        <img class="lazy-img product-image" 
+             loading="lazy" 
+             src="{{ page.image }}" 
+             alt="{{ page.title }}" 
+             data-zoomable>
+      </div>
+      
+      <!-- UNIVERSAL PRODUCT INFO -->
+      <div class="product-info-universal">
+        <!-- PRODUCT TITLE -->
+        <h2 class="product-title">{{ page.title }}</h2>
+        
+        <!-- PRODUCT DESCRIPTION -->
+        <p class="product-subtitle">{{ page.description }}</p>
+        
+        <!-- PRICE SECTION -->
         <div class="product-price">
-          {% if page.original_price %}
-            <span class="original-price">{{ page.original_price }}</span>
-          {% endif %}
           <span class="current-price">{{ page.price }}</span>
-        </div>
-      </div>
-      
-      <h1 class="product-title">{{ page.title }}</h1>
-      <p class="product-description">{{ page.description }}</p>
-      
-      <div class="product-features">
-        <h3><i class="fas fa-gift gradient-icon mr-2"></i> What's Included:</h3>
-        <ul>
-          {% for feature in page.features %}
-            <li class="feature-item">
-              <div class="feature-icon">✓</div>
-              <span>{{ feature }}</span>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-      
-      <div class="product-actions">
-        <a href="{{ page.stripe_link }}" class="btn-primary action-btn pulse-on-hover">
-          <i class="fas fa-lock mr-2"></i> Enroll Now - {{ page.price }}
-        </a>
-        {% if page.demo_link %}
-          <a href="{{ page.demo_link }}" class="btn-secondary action-btn">
-            <i class="fas fa-play mr-2"></i> Preview Course
-          </a>
-        {% endif %}
-      </div>
-      
-      <div class="product-guarantee">
-        <i class="fas fa-shield-alt gradient-icon"></i>
-        <span>30-day money-back guarantee</span>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Course Content -->
-  <div class="product-content glass-card">
-    <div class="prose">
-      {{ content }}
-    </div>
-    
-    <!-- Course Details -->
-    <div class="course-details">
-      <h2 class="module-title"><i class="fas fa-info-circle gradient-icon mr-2"></i> Course Details</h2>
-      <div class="product-meta-grid">
-        <div class="meta-item glass-card">
-          <div class="meta-label">Duration</div>
-          <div class="meta-value">{{ page.duration | default: "Self-paced" }}</div>
-        </div>
-        <div class="meta-item glass-card">
-          <div class="meta-label">Level</div>
-          <div class="meta-value">{{ page.level | default: "Beginner - Advanced" }}</div>
-        </div>
-        <div class="meta-item glass-card">
-          <div class="meta-label">Language</div>
-          <div class="meta-value">{{ page.language | default: "English" }}</div>
-        </div>
-        <div class="meta-item glass-card">
-          <div class="meta-label">Access</div>
-          <div class="meta-value">{{ page.access | default: "Lifetime" }}</div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Course Modules -->
-    <div class="course-modules">
-      <h2 class="module-title gradient-text"><i class="fas fa-list-ol mr-2"></i> Detailed Curriculum</h2>
-      <div class="modules-container">
-        {% if page.modules %}
-          {% for module in page.modules %}
-          <div class="module-card glass-card">
-            <div class="module-number">{{ forloop.index }}</div>
-            <div>
-              <h3>{{ module.title }}</h3>
-              <p>{{ module.description | default: "Comprehensive training with exercises" }}</p>
-            </div>
-          </div>
-          {% endfor %}
-        {% else %}
-          <!-- Default modules for mindset course -->
-          {% assign modules = "Foundation of Mindset,Identifying Limiting Beliefs,Cognitive Restructuring,Growth vs Fixed Mindset,Resilience Building,Motivation Mastery,Positive Psychology,Habit Formation,Stress Management,Goal Setting,Visualization Techniques,Maintaining Progress" | split: "," %}
-          {% for module in modules %}
-          <div class="module-card glass-card">
-            <div class="module-number">{{ forloop.index }}</div>
-            <div>
-              <h3>{{ module }}</h3>
-              <p>Comprehensive training with exercises</p>
-            </div>
-          </div>
-          {% endfor %}
-        {% endif %}
-      </div>
-    </div>
-    
-    <!-- Author/Instructor Section -->
-    {% if page.author %}
-    <div class="course-author">
-      <h2 class="module-title"><i class="fas fa-user-tie gradient-icon mr-2"></i> Instructor</h2>
-      <div class="author-info glass-card">
-        <div class="author-avatar">
-          {% if page.author.avatar %}
-            <img src="{{ page.author.avatar }}" alt="{{ page.author.name }}" />
-          {% else %}
-            {{ page.author.name | slice: 0, 2 | upcase }}
+          {% if page.original_price %}
+            <span class="old-price">{{ page.original_price }}</span>
+            <span class="discount-badge">
+              {% assign discount = page.original_price | remove: '$' | plus: 0 %}
+              {% assign current = page.price | remove: '$' | plus: 0 %}
+              {% assign savings = discount | minus: current %}
+              {% assign percent = savings | times: 100 | divided_by: discount %}
+              -{{ percent }}%
+            </span>
           {% endif %}
         </div>
-        <div class="author-details">
-          <div class="author-name">{{ page.author.name }}</div>
-          <div class="author-title">{{ page.author.title }}</div>
-          <div class="author-bio">{{ page.author.bio }}</div>
+        
+        <!-- ACTION BUTTONS -->
+        <div class="action-buttons">
+          <a href="{{ page.stripe_link }}" class="btn btn-primary pulse-on-hover">
+            <i class="fas fa-lock mr-2"></i> Enroll Now - {{ page.price }}
+          </a>
+          {% if page.demo_link %}
+            <a href="{{ page.demo_link }}" class="btn btn-secondary">
+              <i class="fas fa-play mr-2"></i> Preview Course
+            </a>
+          {% endif %}
+        </div>
+        
+        <!-- GUARANTEE -->
+        <div class="product-guarantee">
+          <i class="fas fa-shield-alt gradient-icon"></i>
+          <span>30-day money-back guarantee</span>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- MODULAR CONTENT SECTIONS -->
+  <div class="product-modules">
+    
+    <!-- FEATURES MODULE -->
+    {% if page.features %}
+      {% include product-features.html %}
     {% endif %}
     
-    <!-- Testimonials Section -->
+    <!-- METADATA MODULE -->
+    {% if page.duration or page.level or page.language or page.access %}
+      {% include product-metadata.html %}
+    {% endif %}
+    
+    <!-- MAIN CONTENT MODULE -->
+    {% if content and content != "" %}
+      {% include product-description.html %}
+    {% endif %}
+    
+    <!-- CURRICULUM MODULE -->
+    {% if page.modules or page.curriculum %}
+      {% include product-curriculum.html %}
+    {% endif %}
+    
+    <!-- AUTHOR MODULE -->
+    {% if page.author %}
+      {% include product-author.html %}
+    {% endif %}
+    
+    <!-- TESTIMONIALS MODULE -->
     {% if page.testimonials %}
-    <div class="course-testimonials">
-      <h2 class="module-title"><i class="fas fa-star gradient-icon mr-2"></i> Student Reviews</h2>
-      <div class="testimonials-grid">
-        {% for testimonial in page.testimonials %}
-        <div class="testimonial-card glass-card">
-          <div class="testimonial-stars">
-            {% for i in (1..testimonial.rating) %}★{% endfor %}
-          </div>
-          <div class="testimonial-content">
-            <p>"{{ testimonial.content }}"</p>
-            <div class="testimonial-author">
-              <strong>{{ testimonial.name }}</strong>
-              {% if testimonial.title %}
-                <span> • {{ testimonial.title }}</span>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
+      {% include product-testimonials.html %}
     {% endif %}
     
-    <!-- FAQ Section -->
+    <!-- FAQ MODULE -->
     {% if page.faq %}
-    <div class="course-faq">
-      <h2 class="module-title"><i class="fas fa-question-circle gradient-icon mr-2"></i> Frequently Asked Questions</h2>
-      <div class="faq-container">
-        {% for faq in page.faq %}
-        <div class="faq-item glass-card">
-          <div class="faq-question">{{ faq.question }}</div>
-          <div class="faq-answer">{{ faq.answer }}</div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
+      {% include product-faq.html %}
     {% endif %}
+    
   </div>
   
-  <!-- Final CTA -->
+  <!-- FINAL CTA -->
   <div class="product-cta glass-card">
-    <h2>Ready to Transform Your {{ page.category | default: "Mindset" }}?</h2>
-    <a href="{{ page.stripe_link }}" class="btn-primary action-btn pulse">
+    <h2>Ready to Transform Your {{ page.category | default: "Skills" }}?</h2>
+    <a href="{{ page.stripe_link }}" class="btn btn-primary action-btn pulse">
       <i class="fas fa-arrow-right mr-2"></i> Start Learning Today
     </a>
   </div>
@@ -224,16 +154,18 @@ document.querySelectorAll(".faq-question").forEach(question => {
     // Close all answers
     document.querySelectorAll(".faq-answer").forEach(ans => {
       ans.style.display = "none";
+      ans.previousElementSibling.classList.remove("active");
     });
     
     // Open current answer if it was closed
     if (!isOpen) {
       answer.style.display = "block";
+      question.classList.add("active");
     }
   });
 });
 
-// Scroll Animation Observer
+// Intersection Observer for animations
 const observerOptions = {
   threshold: 0.1,
   rootMargin: "0px 0px -50px 0px"
@@ -248,7 +180,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 
-// Observe all glass cards for animation
+// Observe all glass cards
 document.querySelectorAll(".glass-card").forEach(card => {
   card.style.opacity = "0";
   card.style.transform = "translateY(20px)";
@@ -256,15 +188,10 @@ document.querySelectorAll(".glass-card").forEach(card => {
   observer.observe(card);
 });
 
-// Lazy loading for images
+// Image loading animation
 document.querySelectorAll('.lazy-img').forEach(img => {
-  img.addEventListener('load', function() {
+  img.onload = function() {
     this.classList.add('loaded');
-  });
-  
-  // If image is already loaded
-  if (img.complete) {
-    img.classList.add('loaded');
-  }
+  };
 });
 </script>
