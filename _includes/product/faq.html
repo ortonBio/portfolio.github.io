@@ -1,0 +1,14 @@
+<!-- _includes/product/faq.html -->
+<div class="module-faq glass-card">
+  <h3 class="module-title">
+    {{ page.faq_title | default: "Frequently Asked Questions" }}
+  </h3>
+  <div class="faq-container">
+    {% for faq in page.faq %}
+    <div class="faq-item">
+      <div class="faq-question">{{ faq.question }}</div>
+      <div class="faq-answer">{{ faq.answer }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

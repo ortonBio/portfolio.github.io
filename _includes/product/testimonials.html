@@ -1,0 +1,22 @@
+<!-- _includes/product/testimonials.html -->
+<div class="module-testimonials glass-card">
+  <h3 class="module-title">
+    {{ page.testimonials_title | default: "Student Testimonials" }}
+  </h3>
+  <div class="testimonials-grid">
+    {% for testimonial in page.testimonials %}
+    <div class="testimonial-card">
+      <div class="testimonial-content">
+        <div class="testimonial-stars">{{ testimonial.stars }}</div>
+        <p>"{{ testimonial.content }}"</p>
+        <div class="testimonial-author">
+          <strong>{{ testimonial.author }}</strong>
+          {% if testimonial.role %}
+          <span> • {{ testimonial.role }}</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<!-- _includes/product/curriculum.html -->
+<div class="module-curriculum glass-card">
+  <h2 class="module-title gradient-text">
+    <i class="fas fa-list-ol mr-2"></i> 
+    {{ page.curriculum_title | default: "Detailed Curriculum" }}
+  </h2>
+  <div class="modules-container">
+    {% for module in page.curriculum %}
+    <div class="module-card glass-card">
+      <div class="module-number">{{ forloop.index }}</div>
+      <div>
+        <h3>{{ module.title }}</h3>
+        <p>{{ module.description }}</p>
+        {% if module.duration %}
+        <small class="module-duration">{{ module.duration }}</small>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

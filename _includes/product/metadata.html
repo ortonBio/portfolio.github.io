@@ -1,0 +1,46 @@
+<!-- _includes/product/metadata.html -->
+<div class="product-metadata">
+  <div class="product-meta">
+    {% if page.duration %}
+    <div class="meta-item">
+      <div class="meta-label">Duration</div>
+      <div class="meta-value">{{ page.duration }}</div>
+    </div>
+    {% endif %}
+    
+    {% if page.level %}
+    <div class="meta-item">
+      <div class="meta-label">Level</div>
+      <div class="meta-value">{{ page.level }}</div>
+    </div>
+    {% endif %}
+    
+    {% if page.language %}
+    <div class="meta-item">
+      <div class="meta-label">Language</div>
+      <div class="meta-value">{{ page.language }}</div>
+    </div>
+    {% endif %}
+    
+    {% if page.access %}
+    <div class="meta-item">
+      <div class="meta-label">Access</div>
+      <div class="meta-value">{{ page.access }}</div>
+    </div>
+    {% endif %}
+    
+    {% if page.format %}
+    <div class="meta-item">
+      <div class="meta-label">Format</div>
+      <div class="meta-value">{{ page.format }}</div>
+    </div>
+    {% endif %}
+    
+    {% if page.support %}
+    <div class="meta-item">
+      <div class="meta-label">Support</div>
+      <div class="meta-value">{{ page.support }}</div>
+    </div>
+    {% endif %}
+  </div>
+</div>

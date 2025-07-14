@@ -1,0 +1,20 @@
+<!-- _includes/product/instructor.html -->
+<div class="module-instructor glass-card">
+  <h3 class="module-title">
+    {{ page.instructor_title | default: "Instructor" }}
+  </h3>
+  <div class="instructor-info">
+    <div class="instructor-avatar">
+      {% if page.instructor.image %}
+      <img src="{{ page.instructor.image }}" alt="{{ page.instructor.name }}">
+      {% else %}
+      {{ page.instructor.initials }}
+      {% endif %}
+    </div>
+    <div class="instructor-details">
+      <div class="instructor-name">{{ page.instructor.name }}</div>
+      <div class="instructor-title">{{ page.instructor.title }}</div>
+      <div class="instructor-bio">{{ page.instructor.bio }}</div>
+    </div>
+  </div>
+</div>

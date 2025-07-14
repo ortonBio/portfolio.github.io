@@ -1,0 +1,13 @@
+<!-- _includes/product/action-buttons.html -->
+<div class="action-buttons">
+  <a href="{{ page.stripe_link | default: '#' }}" class="btn btn-primary pulse-on-hover">
+    <i class="fas fa-lock mr-2"></i> 
+    {{ page.buy_text | default: 'Buy Now' }} - {{ page.price }}
+  </a>
+  {% if page.demo_link %}
+  <a href="{{ page.demo_link }}" class="btn btn-secondary">
+    <i class="fas fa-play mr-2"></i> 
+    {{ page.demo_text | default: 'Preview' }}
+  </a>
+  {% endif %}
+</div>

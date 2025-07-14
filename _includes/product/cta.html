@@ -1,0 +1,8 @@
+<!-- _includes/product/cta.html -->
+<div class="product-cta glass-card">
+  <h2>{{ page.cta.title | default: "Ready to Get Started?" }}</h2>
+  <a href="{{ page.cta.link | default: page.stripe_link | default: '#' }}" class="btn btn-primary action-btn pulse">
+    <i class="fas fa-arrow-right mr-2"></i> 
+    {{ page.cta.button_text | default: page.buy_text | default: 'Buy Now' }} - {{ page.price }}
+  </a>
+</div>

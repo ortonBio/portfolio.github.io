@@ -1,0 +1,8 @@
+<!-- _includes/product/price.html -->
+<div class="product-price">
+  <span class="current-price">{{ page.price }}</span>
+  {% if page.original_price %}
+  <span class="old-price">{{ page.original_price }}</span>
+  <span class="discount-badge">-{{ page.discount }}%</span>
+  {% endif %}
+</div>
