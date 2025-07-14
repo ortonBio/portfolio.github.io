@@ -1,9 +1,9 @@
 title: Will Napolini
 email: your-email@example.com
 description: 'Mindset • Skillset • Toolset'
-baseurl: '/willbio.github.io'
-url: 'https://github.com/WillEasyStart/willbio.github.io' # the base hostname & protocol for your site, e.g. http://example.com
-repository: 'WillEasyStart/willbio.github.io'
+baseurl: '/portfolio.github.io'
+url: 'https://github.com/ortonBio/portfolio.github.io' # the base hostname & protocol for your site, e.g. http://example.com
+repository: 'ortonBio/portfolio.github.io'
 
 # Build settings
 markdown: kramdown
