@@ -6,66 +6,232 @@ layout: default
 
 <article class="product-article glass-card">
   <!-- Hero Section -->
-  <header class="product-hero">
-    <div class="product-hero-image image-loading glass-card">
-      <img
-        class="lazy-img"
-        loading="lazy"
-        src="{{ page.image }}"
-        alt="{{ page.title }}"
-        data-zoomable
-      />
+  <div class="product-hero glass-card">
+    <div class="product-header">
+      <div class="bestseller-badge">{{ page.category }}</div>
+      <h1>{{ page.title }}</h1>
     </div>
 
-    <div class="product-header-content glass-card">
-      <div class="product-meta">
-        <span class="product-category">{{ page.category }}</span>
+    <div class="product-main">
+      <!-- IMAGE -->
+      <div class="product-image-container">
+        <img
+          class="lazy-img product-image"
+          loading="lazy"
+          src="{{ page.image }}"
+          alt="{{ page.title }}"
+          data-zoomable
+        />
+      </div>
+
+      <!-- UNIVERSAL INFO -->
+      <div class="product-info-universal">
+        <!-- PRODUCT TITLE -->
+        <h2 class="product-title">{{ page.title }}</h2>
+
+        <!-- PRE-DESCRIPTION -->
+        <p class="product-subtitle">
+          {{ page.description }}
+        </p>
+
+        <!-- PRICE -->
         <div class="product-price">
+          <span class="current-price">{{ page.price }}</span>
           {% if page.original_price %}
-          <span class="original-price">{{ page.original_price }}</span>
+          <span class="old-price">{{ page.original_price }}</span>
+          <span class="discount-badge">-{{ page.discount }}%</span>
           {% endif %}
-          <span class="current-price gradient-text">{{ page.price }}</span>
+        </div>
+
+        <!-- MAIN ACTION BUTTONS -->
+        <div class="action-buttons">
+          <a href="{{ page.stripe_link }}" class="btn btn-primary pulse-on-hover">
+            <i class="fas fa-lock mr-2"></i> Enroll Now - {{ page.price }}
+          </a>
+          {% if page.demo_link %}
+          <a href="{{ page.demo_link }}" class="btn btn-secondary">
+            <i class="fas fa-play mr-2"></i> Preview Course
+          </a>
+          {% endif %}
+        </div>
+
+        <!-- Guarantee -->
+        <div class="product-guarantee">
+          <i class="fas fa-shield-alt gradient-icon"></i>
+          <span>{{ page.guarantee }}</span>
         </div>
       </div>
+    </div>
+  </div>
 
-      <h1 class="product-title">{{ page.title }}</h1>
-      <p class="product-description">{{ page.description }}</p>
-
-      <div class="product-features">
-        <h3><i class="fas fa-gift gradient-icon mr-2"></i> What's Included:</h3>
-        <ul>
-          {% for feature in page.features %}
-          <li class="feature-item">
-            <span class="feature-icon fa-gradient">✓</span>
-            <span>{{ feature }}</span>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-
-      <div class="product-actions">
-        <a
-          href="{{ page.stripe_link }}"
-          class="btn-primary action-btn pulse-on-hover"
-        >
-          <i class="fas fa-lock mr-2"></i> Enroll Now - {{ page.price }}
-        </a>
-        {% if page.demo_link %}
-        <a href="{{ page.demo_link }}" class="btn-secondary action-btn">
-          <i class="fas fa-play mr-2"></i> Preview Course
-        </a>
-        {% endif %}
-      </div>
-
-      <div class="product-guarantee">
-        <i class="fas fa-shield-alt gradient-icon"></i>
-        <span>{{ page.features[3] }}</span>
+  <!-- MODULE CONTAINERS -->
+  <div class="product-modules">
+    <!-- MODULE: FEATURES/BENEFITS -->
+    <div class="module-features glass-card">
+      <h3 class="module-title">
+        <i class="fas fa-gift gradient-icon mr-2"></i> What's Included:
+      </h3>
+      <div class="features-list">
+        {% for feature in page.features %}
+        <div class="feature-item">
+          <div class="feature-icon">✓</div>
+          <div class="feature-text">{{ feature }}</div>
+        </div>
+        {% endfor %}
       </div>
     </div>
-  </header>
 
-  <!-- Course Content -->
-  <div class="product-content glass-card">
-    <div class="prose">{{ content }}</div>
+    <!-- MODULE: SPECIFIC METADATA -->
+    <div class="module-metadata glass-card">
+      <h3 class="module-title">Course Details</h3>
+      <div class="product-meta">
+        <div class="meta-item">
+          <div class="meta-label">Duration</div>
+          <div class="meta-value">{{ page.duration }}</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Level</div>
+          <div class="meta-value">{{ page.level }}</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Language</div>
+          <div class="meta-value">{{ page.language }}</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Access</div>
+          <div class="meta-value">{{ page.access }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE: FULL DESCRIPTION -->
+    <div class="module-description glass-card">
+      <h3 class="module-title">Full Description</h3>
+      <div class="description-text prose">
+        {{ content }}
+      </div>
+    </div>
+
+    <!-- MODULE: CURRICULUM -->
+    <div class="module-curriculum glass-card">
+      <h2 class="module-title gradient-text">
+        <i class="fas fa-list-ol mr-2"></i> Detailed Curriculum
+      </h2>
+      <div class="modules-container">
+        {% for module in page.curriculum %}
+        <div class="module-card glass-card">
+          <div class="module-number">{{ forloop.index }}</div>
+          <div>
+            <h3>{{ module.title }}</h3>
+            <p>{{ module.description }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- MODULE: INSTRUCTOR -->
+    <div class="module-instructor glass-card">
+      <h3 class="module-title">Instructor</h3>
+      <div class="instructor-info">
+        <div class="instructor-avatar">{{ page.instructor.initials }}</div>
+        <div class="instructor-details">
+          <div class="instructor-name">{{ page.instructor.name }}</div>
+          <div class="instructor-title">
+            {{ page.instructor.title }}
+          </div>
+          <div class="instructor-bio">
+            {{ page.instructor.bio }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE: TESTIMONIALS -->
+    <div class="module-testimonials glass-card">
+      <h3 class="module-title">Student Testimonials</h3>
+      <div class="testimonials-grid">
+        {% for testimonial in page.testimonials %}
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <div class="testimonial-stars">{{ testimonial.stars }}</div>
+            <p>
+              "{{ testimonial.content }}"
+            </p>
+            <div class="testimonial-author">
+              <strong>{{ testimonial.author }}</strong>
+              <span> • {{ testimonial.role }}</span>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- MODULE: FAQ -->
+    <div class="module-faq glass-card">
+      <h3 class="module-title">Frequently Asked Questions</h3>
+      <div class="faq-container">
+        {% for faq in page.faq %}
+        <div class="faq-item">
+          <div class="faq-question">{{ faq.question }}</div>
+          <div class="faq-answer">
+            {{ faq.answer }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="product-cta glass-card">
+    <h2>{{ page.cta.title }}</h2>
+    <a href="{{ page.cta.link }}" class="btn btn-primary action-btn pulse">
+      <i class="fas fa-arrow-right mr-2"></i> {{ page.cta.button_text }}
+    </a>
   </div>
 </article>
+
+<script>
+  // Simple FAQ animation
+  document.querySelectorAll(".faq-question").forEach((question) => {
+    question.addEventListener("click", () => {
+      const answer = question.nextElementSibling;
+      const isOpen = answer.style.display === "block";
+
+      // Close all answers
+      document.querySelectorAll(".faq-answer").forEach((ans) => {
+        ans.style.display = "none";
+      });
+
+      // Open current answer if it was closed
+      if (!isOpen) {
+        answer.style.display = "block";
+      }
+    });
+  });
+
+  // Scroll animation
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px",
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = "1";
+        entry.target.style.transform = "translateY(0)";
+      }
+    });
+  }, observerOptions);
+
+  // Observe all modules
+  document.querySelectorAll(".glass-card").forEach((card) => {
+    card.style.opacity = "0";
+    card.style.transform = "translateY(20px)";
+    card.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+    observer.observe(card);
+  });
+</script>
