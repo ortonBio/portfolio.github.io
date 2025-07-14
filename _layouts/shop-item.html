@@ -7,84 +7,69 @@ layout: default
 ---
 layout: default
 ---
+
 <article class="product-article glass-card">
   <!-- Hero Section -->
   <header class="product-hero">
     <div class="product-hero-image image-loading glass-card">
-      <img class="lazy-img" loading="lazy" src="{{ page.image }}" alt="{{ page.title }}" data-zoomable>
+      <img
+        class="lazy-img"
+        loading="lazy"
+        src="{{ page.image }}"
+        alt="{{ page.title }}"
+        data-zoomable
+      />
     </div>
-    
+
     <div class="product-header-content glass-card">
       <div class="product-meta">
         <span class="product-category">{{ page.category }}</span>
         <div class="product-price">
           {% if page.original_price %}
-            <span class="original-price">{{ page.original_price }}</span>
+          <span class="original-price">{{ page.original_price }}</span>
           {% endif %}
           <span class="current-price gradient-text">{{ page.price }}</span>
         </div>
       </div>
-      
+
       <h1 class="product-title">{{ page.title }}</h1>
       <p class="product-description">{{ page.description }}</p>
-      
+
       <div class="product-features">
         <h3><i class="fas fa-gift gradient-icon mr-2"></i> What's Included:</h3>
         <ul>
           {% for feature in page.features %}
-            <li class="feature-item">
-              <span class="feature-icon fa-gradient">✓</span>
-              <span>{{ feature }}</span>
-            </li>
+          <li class="feature-item">
+            <span class="feature-icon fa-gradient">✓</span>
+            <span>{{ feature }}</span>
+          </li>
           {% endfor %}
         </ul>
       </div>
-      
+
       <div class="product-actions">
-        <a href="{{ page.stripe_link }}" class="btn-primary action-btn pulse-on-hover">
+        <a
+          href="{{ page.stripe_link }}"
+          class="btn-primary action-btn pulse-on-hover"
+        >
           <i class="fas fa-lock mr-2"></i> Enroll Now - {{ page.price }}
         </a>
         {% if page.demo_link %}
-          <a href="{{ page.demo_link }}" class="btn-secondary action-btn">
-            <i class="fas fa-play mr-2"></i> Preview Course
-          </a>
+        <a href="{{ page.demo_link }}" class="btn-secondary action-btn">
+          <i class="fas fa-play mr-2"></i> Preview Course
+        </a>
         {% endif %}
       </div>
-      
+
       <div class="product-guarantee">
         <i class="fas fa-shield-alt gradient-icon"></i>
         <span>{{ page.features[3] }}</span>
       </div>
     </div>
   </header>
-  
+
   <!-- Course Content -->
   <div class="product-content glass-card">
-    <div class="prose">
-      {{ content }}
-    </div>
-    
-    <!-- Course Modules -->
-    <div class="course-modules">
-      <h2 class="module-title gradient-text"><i class="fas fa-list-ol mr-2"></i> Detailed Curriculum</h2>
-      <div class="modules-container">
-        {% assign modules = "Foundation of Mindset|Identifying Limiting Beliefs|Cognitive Restructuring|Growth vs Fixed Mindset|Resilience Building|Motivation Mastery|Positive Psychology|Habit Formation|Stress Management|Goal Setting|Visualization Techniques|Maintaining Progress" | split: "|" %}
-        {% for module in modules %}
-        <div class="module-card glass-card">
-          <div class="module-number">{{ forloop.index }}</div>
-          <h3>{{ module }}</h3>
-          <p>Comprehensive training with exercises</p>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-  
-  <!-- Final CTA -->
-  <div class="product-cta glass-card">
-    <h2>Ready to Transform Your Mindset?</h2>
-    <a href="{{ page.stripe_link }}" class="btn-primary action-btn pulse">
-      <i class="fas fa-arrow-right mr-2"></i> Start Learning Today
-    </a>
+    <div class="prose">{{ content }}</div>
   </div>
 </article>
