@@ -1,0 +1,30 @@
+<!-- Trigger area for sliding button -->
+<div class="home-trigger" id="homeTrigger"></div>
+
+<!-- Sliding Back to Home Button -->
+<a 
+  href="{{ include.home_url | default: 'https://willeasystart.github.io/willbio.github.io/' }}" 
+  class="back-to-home initial-show" 
+  id="backToHome"
+  aria-label="Back to home"
+  title="Back to home"
+>
+  <svg class="home-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+  </svg>
+</a>
+
+<!-- Scroll to Top Button -->
+<button 
+  class="scroll-to-top" 
+  onclick="scrollToTop()" 
+  id="scrollToTopBtn"
+  aria-label="Back to top"
+  title="Back to top"
+>
+  <div class="opacity-70">
+    <svg class="scroll-to-top-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+    </svg>
+  </div>
+</button>

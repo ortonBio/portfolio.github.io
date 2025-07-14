@@ -1,0 +1,77 @@
+---
+layout: default
+---
+
+<!-- Trigger area for sliding button -->
+<div class="home-trigger" id="homeTrigger"></div>
+
+<!-- Sliding Back to Home Button -->
+<a 
+  href="https://willeasystart.github.io/willbio.github.io/" 
+  class="back-to-home initial-show" 
+  id="backToHome"
+  aria-label="Back to home"
+  title="Back to home"
+>
+  <svg class="home-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+  </svg>
+</a>
+
+<!-- Scroll to Top Button -->
+<button 
+  class="scroll-to-top" 
+  onclick="scrollToTop()" 
+  id="scrollToTopBtn"
+  aria-label="Back to top"
+  title="Back to top"
+>
+  <div class="opacity-70">
+    <svg class="scroll-to-top-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+    </svg>
+  </div>
+</button>
+
+<article class="post-article">
+    <!-- Hero Section -->
+    <header class="post-hero">
+        <div class="post-hero-image image-loading" id="heroImage">
+            <img class="lazy-img" loading="lazy" src="{{ page.image | relative_url }}" alt="{{ page.title }}">
+            
+            <!-- Category Badge Overlay -->
+            {% if page.categories %}
+            <div class="post-categories-overlay">
+                {% for category in page.categories %}
+                <span class="post-category-badge">{{ category }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <!-- Header Content -->
+            <div class="post-header-content">
+                <div class="post-meta">
+                    <time datetime="{{ page.date | date_to_xmlschema }}" class="post-date">
+                        {{ page.date | date: "%b %d, %Y" }}
+                    </time>
+                    {% if page.read_time %}
+                    <span class="post-read-time">
+                        <i class="far fa-clock"></i> {{ page.read_time }}
+                    </span>
+                    {% endif %}
+                </div>
+                <h1 class="post-title">{{ page.title }}</h1>
+                {% if page.description %}
+                <p class="post-description">{{ page.description }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+  <!-- Main Content -->
+  <div class="post-content glass-card">
+    <div class="prose">
+      {{ content }}
+    </div>
+  </div>
+</article>
