@@ -25,18 +25,18 @@ let hideHomeButtonTimeout;
 // Theme toggle
 if (themeToggle) {
   themeToggle.addEventListener("click", () => {
-    document.body.classList.toggle("light-mode");
-    document.body.classList.toggle("dark-mode");
-    const icon = themeToggle.querySelector(".theme-icon");
-    if (document.body.classList.contains("light-mode")) {
-      icon?.classList.replace("fa-moon", "fa-sun");
-      localStorage.setItem("theme", "light");
-    } else {
-      icon?.classList.replace("fa-sun", "fa-moon");
-      localStorage.setItem("theme", "dark");
-    }
-    updateModalTheme();
-  });
+  const isDark = document.body.classList.toggle("dark-mode");
+  const icon = themeToggle.querySelector(".theme-icon");
+  
+  if (isDark) {
+    icon?.classList.replace("fa-sun", "fa-moon");
+    localStorage.setItem("theme", "dark");
+  } else {
+    icon?.classList.replace("fa-moon", "fa-sun");
+    localStorage.setItem("theme", "light");
+  }
+  updateModalTheme();
+});
 }
 
 // Check saved theme preference
