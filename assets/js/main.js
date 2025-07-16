@@ -537,3 +537,235 @@ window.filterCards = filterCards;
 window.scrollToTop = scrollToTop;
 window.showHomeButton = showHomeButton;
 window.hideHomeButton = hideHomeButton;
+
+// Enhanced Description Interactive Elements
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // Smooth scroll animations for description blocks
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const blockObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  // Observe all description blocks for animation
+  const descriptionBlocks = document.querySelectorAll('.description-content > div');
+  descriptionBlocks.forEach((block, index) => {
+    // Set initial state for animation
+    block.style.opacity = '0';
+    block.style.transform = 'translateY(30px)';
+    block.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+    
+    // Observe for intersection
+    blockObserver.observe(block);
+  });
+
+  // Enhanced hover effects for feature cards
+  const featureCards = document.querySelectorAll('.feature-card');
+  featureCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-5px) scale(1.02)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0) scale(1)';
+    });
+  });
+
+  // Enhanced hover effects for benefit cards
+  const benefitCards = document.querySelectorAll('.benefit-card');
+  benefitCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-5px) scale(1.02)';
+      const icon = this.querySelector('.benefit-icon');
+      if (icon) {
+        icon.style.transform = 'scale(1.2) rotate(5deg)';
+        icon.style.transition = 'transform 0.3s ease';
+      }
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0) scale(1)';
+      const icon = this.querySelector('.benefit-icon');
+      if (icon) {
+        icon.style.transform = 'scale(1) rotate(0deg)';
+      }
+    });
+  });
+
+  // Interactive spec items with click to highlight
+  const specItems = document.querySelectorAll('.spec-item');
+  specItems.forEach(item => {
+    item.addEventListener('click', function() {
+      // Remove highlight from all items
+      specItems.forEach(spec => spec.classList.remove('spec-highlighted'));
+      
+      // Add highlight to clicked item
+      this.classList.add('spec-highlighted');
+      
+      // Remove highlight after 3 seconds
+      setTimeout(() => {
+        this.classList.remove('spec-highlighted');
+      }, 3000);
+    });
+  });
+
+  // Smooth CTA button animation
+  const ctaButton = document.querySelector('.cta-button');
+  if (ctaButton) {
+    ctaButton.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-3px) scale(1.05)';
+    });
+    
+    ctaButton.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0) scale(1)';
+    });
+  }
+
+  // Progressive loading effect for included items
+  const includedItems = document.querySelectorAll('.included-item');
+  includedItems.forEach((item, index) => {
+    setTimeout(() => {
+      item.style.opacity = '1';
+      item.style.transform = 'translateX(0)';
+    }, index * 100);
+    
+    // Set initial state
+    item.style.opacity = '0';
+    item.style.transform = 'translateX(-20px)';
+    item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+  });
+
+  // Parallax effect for gradient backgrounds (subtle)
+  const gradientBlocks = document.querySelectorAll('.description-features-block, .description-included-block, .description-benefits-block, .description-cta-block');
+  
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    
+    gradientBlocks.forEach((block, index) => {
+      const rate = scrolled * -0.1;
+      block.style.backgroundPosition = `center ${rate}px`;
+    });
+  });
+
+  // Add ripple effect to clickable elements
+  function createRipple(event) {
+    const button = event.currentTarget;
+    const circle = document.createElement('span');
+    const diameter = Math.max(button.clientWidth, button.clientHeight);
+    const radius = diameter / 2;
+
+    circle.style.width = circle.style.height = `${diameter}px`;
+    circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
+    circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
+    circle.classList.add('ripple');
+
+    const ripple = button.getElementsByClassName('ripple')[0];
+    if (ripple) {
+      ripple.remove();
+    }
+
+    button.appendChild(circle);
+  }
+
+  // Apply ripple effect to interactive elements
+  const interactiveElements = document.querySelectorAll('.feature-card, .benefit-card, .spec-item, .additional-item, .cta-button');
+  interactiveElements.forEach(element => {
+    element.addEventListener('click', createRipple);
+  });
+
+  // Lazy loading for heavy content blocks
+  const heavyBlocks = document.querySelectorAll('.description-features-block, .description-benefits-block');
+  const lazyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('loaded');
+        lazyObserver.unobserve(entry.target);
+      }
+    });
+  });
+
+  heavyBlocks.forEach(block => {
+    lazyObserver.observe(block);
+  });
+
+});
+
+// CSS for additional interactive effects (to be added to the CSS file)
+const additionalStyles = `
+.spec-highlighted {
+  background: linear-gradient(135deg, #28F29C, #20E090) !important;
+  color: white !important;
+  transform: translateY(-3px) scale(1.02) !important;
+  box-shadow: 0 8px 25px rgba(40, 242, 156, 0.4) !important;
+}
+
+.spec-highlighted .spec-label,
+.spec-highlighted .spec-value {
+  color: white !important;
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(0);
+  animation: ripple-animation 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.loaded {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+.feature-card,
+.benefit-card,
+.spec-item,
+.additional-item,
+.included-item {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Enhanced focus states for accessibility */
+.feature-card:focus,
+.benefit-card:focus,
+.spec-item:focus,
+.additional-item:focus,
+.cta-button:focus {
+  outline: 2px solid #28F29C;
+  outline-offset: 2px;
+}
+`;
+
+// Inject additional styles
+const styleSheet = document.createElement('style');
+styleSheet.textContent = additionalStyles;
+document.head.appendChild(styleSheet);
