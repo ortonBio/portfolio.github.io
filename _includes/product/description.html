@@ -3,7 +3,129 @@
   <h3 class="module-title">
     {{ page.description_title | default: "Full Description" }}
   </h3>
-  <div class="description-text prose">
-    {{ content }}
+  
+  <!-- Enhanced Description Content with Modern Blocks -->
+  <div class="description-content">
+    
+    <!-- Main Description Text -->
+    <div class="description-main-block">
+      <div class="description-text prose">
+        {{ content }}
+      </div>
+    </div>
+
+    <!-- Key Features/Benefits Block (if features are defined) -->
+    {% if page.key_features %}
+    <div class="description-features-block">
+      <h4 class="features-title">Key Features</h4>
+      <div class="features-grid">
+        {% for feature in page.key_features %}
+        <div class="feature-card">
+          <div class="feature-icon">
+            {{ feature.icon | default: "✓" }}
+          </div>
+          <div class="feature-content">
+            <h5 class="feature-title">{{ feature.title }}</h5>
+            {% if feature.description %}
+            <p class="feature-description">{{ feature.description }}</p>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- What's Included Block (if included_items are defined) -->
+    {% if page.included_items %}
+    <div class="description-included-block">
+      <h4 class="included-title">What's Included</h4>
+      <div class="included-grid">
+        {% for item in page.included_items %}
+        <div class="included-item">
+          <div class="included-icon">
+            {{ item.icon | default: "📦" }}
+          </div>
+          <div class="included-content">
+            <span class="included-text">{{ item.title }}</span>
+            {% if item.description %}
+            <small class="included-description">{{ item.description }}</small>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Specifications Block (if specifications are defined) -->
+    {% if page.specifications %}
+    <div class="description-specs-block">
+      <h4 class="specs-title">Specifications</h4>
+      <div class="specs-grid">
+        {% for spec in page.specifications %}
+        <div class="spec-item">
+          <div class="spec-label">{{ spec.label }}</div>
+          <div class="spec-value">{{ spec.value }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Benefits/Advantages Block (if benefits are defined) -->
+    {% if page.benefits %}
+    <div class="description-benefits-block">
+      <h4 class="benefits-title">Why Choose This Product</h4>
+      <div class="benefits-grid">
+        {% for benefit in page.benefits %}
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            {{ benefit.icon | default: "⭐" }}
+          </div>
+          <div class="benefit-content">
+            <h5 class="benefit-title">{{ benefit.title }}</h5>
+            {% if benefit.description %}
+            <p class="benefit-description">{{ benefit.description }}</p>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Additional Information Block (if additional_info is defined) -->
+    {% if page.additional_info %}
+    <div class="description-additional-block">
+      <h4 class="additional-title">Additional Information</h4>
+      <div class="additional-content">
+        {% for info in page.additional_info %}
+        <div class="additional-item">
+          <h5 class="additional-item-title">{{ info.title }}</h5>
+          <div class="additional-item-content">{{ info.content }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Call to Action Block (if cta is defined) -->
+    {% if page.description_cta %}
+    <div class="description-cta-block">
+      <div class="cta-content">
+        <h4 class="cta-title">{{ page.description_cta.title }}</h4>
+        {% if page.description_cta.subtitle %}
+        <p class="cta-subtitle">{{ page.description_cta.subtitle }}</p>
+        {% endif %}
+        {% if page.description_cta.button_text %}
+        <a href="{{ page.description_cta.button_link | default: '#' }}" class="cta-button btn btn-primary">
+          {{ page.description_cta.button_text }}
+        </a>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
   </div>
 </div>
